@@ -16,6 +16,7 @@ Run with:  py -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 """
 
 import os
+import logging
 import uuid
 import shutil
 import threading
@@ -33,6 +34,8 @@ load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 from database import init_db, get_db, Session as SessionModel, Shot as ShotModel
 from pose_pipeline import analyze_video
 from coaching_engine import get_coaching_analysis
+
+logger = logging.getLogger(__name__)
 
 # ── App setup ────────────────────────────────────────────────────────────────
 
@@ -90,15 +93,29 @@ def get_session(session_id: int, db: DBSession = Depends(get_db)):
 
 @app.get("/api/sessions/{session_id}/status")
 def analysis_status(session_id: int, db: DBSession = Depends(get_db)):
+    logger.info("Status requested for session_id=%s", session_id)
+
     status = _analysis_status.get(session_id)
     if status:
+        # Log only the state; status may contain sensitive data and must not be logged wholesale.
+        logger.info(
+            "Returning in-memory analysis status for session_id=%s state=%s",
+            session_id,
+            status.get("state", "unknown"),
+        )
         return status
+
     # Check DB
+    logger.debug("No in-memory status for session_id=%s; checking database", session_id)
     sess = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not sess:
+        logger.warning("Session not found while checking status: session_id=%s", session_id)
         raise HTTPException(status_code=404, detail="Session not found")
     if sess.primary_focus is not None:
+        logger.info("Database indicates completed analysis for session_id=%s", session_id)
         return {"state": "done", "session_id": session_id}
+
+    logger.info("Database indicates pending analysis for session_id=%s", session_id)
     return {"state": "pending", "session_id": session_id}
 
 
