@@ -336,7 +336,7 @@ export default function UploadPage() {
             <div className={styles.errorHelp}>
               <strong>Common fixes:</strong>
               <ul>
-                <li>Ensure <code>backend/.env</code> contains a valid <code>OPENAI_API_KEY=sk-...</code></li>
+                <li>Open the API Key section in the app and enter a valid OpenAI API key</li>
                 <li>Make sure the backend server is running: <code>py -m uvicorn main:app --reload</code></li>
                 <li>Check that your video file is not corrupted and is a valid video format</li>
               </ul>

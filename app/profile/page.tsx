@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Upload, Loader2, Clock, ChevronRight, AlertCircle, Settings } from "lucide-react";
-import { fetchSessions, fetchHealth, SessionSummary, formatDate, formatDuration } from "@/lib/api";
+import { fetchSessions, fetchHealth, HealthResponse, SessionSummary, formatDate, formatDuration } from "@/lib/api";
 import styles from "./page.module.css";
 
 export default function ProfilePage() {
   const [sessions, setSessions] = useState<SessionSummary[]>([]);
-  const [health, setHealth] = useState<{ api_key_configured: boolean; message: string } | null>(null);
+  const [health, setHealth] = useState<HealthResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export default function ProfilePage() {
     }
   }
   const focusHistory = Object.values(focusCounts).sort((a, b) => b.count - a.count);
+  const backendOnline = health?.status === "ok";
 
   if (loading) return (
     <div className={styles.page}>
@@ -53,17 +54,19 @@ export default function ProfilePage() {
         </div>
 
         {/* API Status */}
-        <div className={`${styles.statusCard} ${health?.api_key_configured ? styles.statusOk : styles.statusWarn}`}>
+        <div className={`${styles.statusCard} ${backendOnline ? styles.statusOk : styles.statusWarn}`}>
           <div className={styles.statusIcon}>
-            {health?.api_key_configured
+            {backendOnline
               ? <div className="status-dot" />
               : <AlertCircle size={16} color="var(--accent-orange)" />}
           </div>
           <div>
             <div className={styles.statusTitle}>
-              {health?.api_key_configured ? "OpenAI API Connected" : "OpenAI API Key Missing"}
+              {backendOnline ? "Backend Connected" : "Backend Unavailable"}
             </div>
-            <div className={styles.statusMsg}>{health?.message}</div>
+            <div className={styles.statusMsg}>
+              {health?.message ?? "The backend health check could not be reached."}
+            </div>
           </div>
         </div>
 
@@ -111,13 +114,12 @@ export default function ProfilePage() {
             <h2 className={styles.cardTitle}><Settings size={15} /> Setup</h2>
 
             <div className={styles.setupSteps}>
-              <div className={`${styles.setupStep} ${health?.api_key_configured ? styles.setupDone : styles.setupPending}`}>
-                <div className={styles.setupStepNum}>{health?.api_key_configured ? "✓" : "1"}</div>
+              <div className={`${styles.setupStep} ${backendOnline ? styles.setupDone : styles.setupPending}`}>
+                <div className={styles.setupStepNum}>{backendOnline ? "✓" : "1"}</div>
                 <div>
                   <div className={styles.setupStepTitle}>Add your OpenAI API key</div>
                   <div className={styles.setupStepDesc}>
-                    Create <code>backend/.env</code> and add:<br />
-                    <code>OPENAI_API_KEY=sk-your-key-here</code>
+                    Add your key in the API Key section. It is stored in this browser and sent with each analysis request.
                   </div>
                 </div>
               </div>

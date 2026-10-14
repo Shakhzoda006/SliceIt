@@ -17,7 +17,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     Promise.all([
-      fetchHealth().then((h) => { setApiOk(h.api_key_configured); setApiMsg(h.message); }),
+      fetchHealth().then((h) => { setApiOk(h.status === "ok"); setApiMsg(h.message); }),
       fetchSessions().then(setSessions),
     ])
       .catch(() => setApiOk(false))
@@ -49,8 +49,8 @@ export default function DashboardPage() {
           <div className={styles.warningBanner}>
             <AlertCircle size={18} color="var(--accent-orange)" />
             <div>
-              <strong>Backend not connected or API key missing.</strong>
-              <span> {apiMsg || "Make sure the backend is running on port 8000 and backend/.env has your OPENAI_API_KEY."}</span>
+              <strong>Backend is not connected.</strong>
+              <span> {apiMsg || "Make sure the backend service is running and reachable."}</span>
             </div>
           </div>
         )}
