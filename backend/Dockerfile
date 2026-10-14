@@ -4,11 +4,14 @@ WORKDIR /app
 
 # System deps for OpenCV / MediaPipe
 RUN apt-get update && apt-get install -y \
-    libegl1 libgl1 libglib2.0-0 libsm6 libxrender1 libxext6 \
+    libegl1 libgles2 libgl1 libglib2.0-0 libgomp1 libstdc++6 libsm6 libxrender1 libxext6 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Fail during image build rather than at request time if native wheels cannot load.
+RUN python -c "import cv2, mediapipe; print('OpenCV', cv2.__version__, '| MediaPipe', mediapipe.__version__)"
 
 # MediaPipe PoseLandmarker model required at runtime by pose_pipeline.py
 RUN python -c "import urllib.request; urllib.request.urlretrieve('https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task', '/app/pose_landmarker.task')"
