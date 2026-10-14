@@ -1,0 +1,85 @@
+.page { padding: 40px 0 80px; min-height: 100vh; }
+
+.spinner { animation: spin 1s linear infinite; }
+
+/* Warning banner */
+.warningBanner {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 18px;
+  background: var(--accent-orange-dim);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: var(--radius-md);
+  font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+  margin-bottom: 24px;
+}
+.warningBanner strong { color: var(--accent-orange); }
+
+/* Header */
+.header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+.title { font-family:'Outfit',sans-serif; font-size:32px; font-weight:800; letter-spacing:-0.02em; color:var(--text-primary); margin-bottom:4px; }
+.sub { font-size:14px; color:var(--text-dim); }
+
+/* Empty state */
+.emptyState {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 80px 24px;
+  background: var(--bg-card); border: 1px dashed var(--border-card);
+  border-radius: var(--radius-xl); margin-bottom: 32px;
+}
+.emptyIcon {
+  width: 72px; height: 72px;
+  background: var(--accent-lime-glow); border: 1px solid rgba(200,248,76,0.2);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.emptyTitle { font-family:'Outfit',sans-serif; font-size:24px; font-weight:800; color:var(--text-primary); margin-bottom:10px; }
+.emptySub { font-size:14px; line-height:1.7; color:var(--text-secondary); max-width:440px; margin-bottom:28px; }
+
+/* Focus card */
+.focusCard {
+  position: relative; background: linear-gradient(135deg,rgba(19,42,28,0.9),rgba(26,53,38,0.9));
+  border: 1px solid var(--border-active); border-radius: var(--radius-xl);
+  padding: 28px; margin-bottom: 20px; overflow: hidden; box-shadow: var(--shadow-glow-strong);
+}
+.focusGlow { position:absolute; top:-60px; right:-60px; width:280px; height:280px; background:radial-gradient(ellipse,rgba(200,248,76,0.1),transparent 70%); pointer-events:none; }
+.focusHeader { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:8px; }
+.focusDate { font-size:12px; color:var(--text-dim); }
+.focusBody { display:flex; gap:16px; align-items:center; margin-bottom:24px; }
+.focusIconWrap { width:48px; height:48px; background:var(--accent-lime); color:var(--bg-deep); border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 20px rgba(200,248,76,0.4); }
+.focusTitle { font-family:'Outfit',sans-serif; font-size:24px; font-weight:800; color:var(--accent-lime); letter-spacing:-0.01em; margin-bottom:4px; }
+.focusSub { font-size:12px; color:var(--text-dim); }
+.focusStats { display:flex; align-items:center; padding:16px 0; border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle); margin-bottom:16px; }
+.focusStat { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.focusDivider { width:1px; height:32px; background:var(--border-subtle); }
+.focusStatVal { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:var(--text-primary); }
+.focusStatLbl { font-size:10px; color:var(--text-dim); font-weight:500; }
+.focusViewBtn { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--accent-lime); text-decoration:none; transition:gap var(--transition-fast); }
+.focusViewBtn:hover { gap:10px; }
+
+/* Stats row */
+.statsRow { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+.statCard { display:flex; align-items:center; gap:14px; padding:20px; background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-lg); transition:all var(--transition-base); }
+.statCard:hover { border-color:var(--border-active); background:var(--bg-card-hover); }
+.statIcon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.statIcon_lime { background:var(--accent-lime-glow); color:var(--accent-lime); border:1px solid rgba(200,248,76,0.2); }
+.statIcon_teal { background:var(--accent-teal-dim); color:var(--accent-teal); border:1px solid rgba(45,212,191,0.2); }
+.statVal { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:var(--text-primary); letter-spacing:-0.02em; }
+.statLbl { font-size:11px; color:var(--text-dim); font-weight:500; margin-top:2px; }
+
+/* Session list */
+.sessionList { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-lg); padding:24px; }
+.sectionHead { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.sectionTitle { font-family:'Outfit',sans-serif; font-size:16px; font-weight:700; color:var(--text-primary); }
+.sessionRow { display:flex; align-items:center; justify-content:space-between; padding:14px; border-radius:var(--radius-sm); text-decoration:none; transition:all var(--transition-fast); border:1px solid transparent; }
+.sessionRow:hover { background:var(--bg-card-hover); border-color:var(--border-subtle); }
+.sessionRowLeft { display:flex; align-items:center; gap:12px; flex:1; }
+.sessionDot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.sessionName { font-size:13.5px; font-weight:600; color:var(--text-primary); margin-bottom:3px; }
+.sessionMeta { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text-dim); }
+.pendingTag { padding:1px 6px; background:var(--accent-orange-dim); color:var(--accent-orange); border-radius:4px; font-size:10px; font-weight:600; }
+.sessionRowRight { display:flex; align-items:center; gap:10px; }
+.sessionFocus { font-size:12px; font-weight:600; color:var(--accent-lime); padding:3px 8px; background:var(--accent-lime-glow); border-radius:100px; }
+.sessionPose { font-size:12px; color:var(--text-dim); }
+
+@media (max-width:1024px) { .statsRow { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px) { .header { flex-direction:column; align-items:flex-start; } .focusBody { flex-direction:column; } }

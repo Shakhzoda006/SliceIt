@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+mediapipe
+opencv-python-headless
+openai
+python-multipart
+aiofiles
+python-dotenv
+sqlalchemy==1.4.46

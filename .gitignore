@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+
+# Environment files — NEVER commit API keys
+.env
+.env.local
+.env*.local
+backend/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+backend/__pycache__/
+backend/*.pyc
+
+# Database — contains user data, don't commit
+backend/sessions.db
+backend/uploads/
+
+# MediaPipe model — large binary, downloaded at runtime
+backend/pose_landmarker.task
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+
+# Firebase
+.firebase/
