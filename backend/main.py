@@ -260,8 +260,9 @@ async def analyze(
             # Clean up uploaded file after analysis
             try:
                 os.remove(video_path)
+                logger.info("Deleted uploaded video for session_id=%s", session_id)
             except Exception:
-                pass
+                logger.exception("Failed to delete uploaded video for session_id=%s", session_id)
 
     thread = threading.Thread(target=run_analysis, daemon=True)
     thread.start()
